@@ -1,4 +1,4 @@
-import AWS from 'aws-sdk';
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 
 let options = {};
 
@@ -21,6 +21,6 @@ if (process.env.IS_OFFLINE) {
   }
 }
 
-const client = new AWS.DynamoDB.DocumentClient(options);
+const client = new DynamoDBClient(options);
 
 export default client;
