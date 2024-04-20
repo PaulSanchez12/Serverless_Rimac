@@ -46,6 +46,18 @@ functions:
       - http:
           path: startWar/{id}
           method: get
+  Swagger:
+    handler: src/swagger/handler.swagger
+    events:
+      - http:
+          path: api-docs
+          method: get
+      - http:
+          path: openapi.json
+          method: get
+      - http:
+          path: api-docs/openapi.json
+          method: get
 
 custom:
   webpack:

@@ -1,0 +1,427 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Reto Técnico API",
+    "description": "Prueba técnica de una api usando Serverless Framework",
+    "contact": {
+      "name": "Reto Técnico API"
+    },
+    "version": "0.1.0"
+  },
+  "externalDocs": {
+    "description": "GitHub Repository"
+  },
+  "paths": {
+    "/dev/startWar": {
+      "get": {
+        "tags": ["Star War"],
+        "summary": "Obtener todos los personajes de Star War",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Lista de personajes de Star War",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/starWarList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dev/startWar/{id}": {
+      "get": {
+        "tags": ["Star War"],
+        "summary": "Obtener un personaje de Star War por id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Personaje de Star War",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/starWar"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dev/people": {
+      "get": {
+        "tags": ["People"],
+        "summary": "Obtener todos las personas registradas en la base de datos",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Lista de personas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/peopleList"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["People"],
+        "summary": "Registrar una persona en la base de datos",
+        "requestBody": {
+          "description": "Registrar una persona en la base de datos",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/peopleAdd"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Id de la persona registrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/dev/people/{id}": {
+      "get": {
+        "tags": ["People"],
+        "summary": "Obtener todos las personas registradas en la base de datos",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Datos de una persona",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/people"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "starWar": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string"
+          },
+          "altura": {
+            "type": "string"
+          },
+          "peso": {
+            "type": "string"
+          },
+          "color_cabello": {
+            "type": "string"
+          },
+          "color_piel": {
+            "type": "string"
+          },
+          "color_ojos": {
+            "type": "string"
+          },
+          "anio_nacimiento": {
+            "type": "string"
+          },
+          "genero": {
+            "type": "string"
+          },
+          "mundo_natal": {
+            "type": "string"
+          },
+          "peliculas": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "especies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "vehiculos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "example": {
+          "nombre": "Luke Skywalker",
+          "altura": "172",
+          "peso": "77",
+          "color_cabello": "blond",
+          "color_piel": "fair",
+          "color_ojos": "blue",
+          "anio_nacimiento": "19BBY",
+          "genero": "male",
+          "mundo_natal": "https://swapi.py4e.com/api/planets/1/",
+          "peliculas": [
+              "https://swapi.py4e.com/api/films/1/",
+              "https://swapi.py4e.com/api/films/2/",
+              "https://swapi.py4e.com/api/films/3/",
+              "https://swapi.py4e.com/api/films/6/",
+              "https://swapi.py4e.com/api/films/7/"
+          ],
+          "especies": [
+              "https://swapi.py4e.com/api/species/1/"
+          ],
+          "vehiculos": [
+              "https://swapi.py4e.com/api/vehicles/14/",
+              "https://swapi.py4e.com/api/vehicles/30/"
+          ]
+        }
+      },
+      "starWarList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/starWar"
+        },
+        "example": [
+          {
+            "nombre": "Luke Skywalker",
+            "altura": "172",
+            "peso": "77",
+            "color_cabello": "blond",
+            "color_piel": "fair",
+            "color_ojos": "blue",
+            "anio_nacimiento": "19BBY",
+            "genero": "male",
+            "mundo_natal": "https://swapi.py4e.com/api/planets/1/",
+            "peliculas": [
+                "https://swapi.py4e.com/api/films/1/",
+                "https://swapi.py4e.com/api/films/2/",
+                "https://swapi.py4e.com/api/films/3/",
+                "https://swapi.py4e.com/api/films/6/",
+                "https://swapi.py4e.com/api/films/7/"
+            ],
+            "especies": [
+                "https://swapi.py4e.com/api/species/1/"
+            ],
+            "vehiculos": [
+                "https://swapi.py4e.com/api/vehicles/14/",
+                "https://swapi.py4e.com/api/vehicles/30/"
+            ]
+          },
+          {
+              "nombre": "C-3PO",
+              "altura": "167",
+              "peso": "75",
+              "color_cabello": "n/a",
+              "color_piel": "gold",
+              "color_ojos": "yellow",
+              "anio_nacimiento": "112BBY",
+              "genero": "n/a",
+              "mundo_natal": "https://swapi.py4e.com/api/planets/1/",
+              "peliculas": [
+                  "https://swapi.py4e.com/api/films/1/",
+                  "https://swapi.py4e.com/api/films/2/",
+                  "https://swapi.py4e.com/api/films/3/",
+                  "https://swapi.py4e.com/api/films/4/",
+                  "https://swapi.py4e.com/api/films/5/",
+                  "https://swapi.py4e.com/api/films/6/"
+              ],
+              "especies": [
+                  "https://swapi.py4e.com/api/species/2/"
+              ],
+              "vehiculos": []
+          }
+        ]
+      },
+      "people": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "nombre": {
+            "type": "string"
+          },
+          "altura": {
+            "type": "string"
+          },
+          "peso": {
+            "type": "string"
+          },
+          "color_cabello": {
+            "type": "string"
+          },
+          "color_piel": {
+            "type": "string"
+          },
+          "color_ojos": {
+            "type": "string"
+          },
+          "anio_nacimiento": {
+            "type": "string"
+          },
+          "genero": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "id": "b5886386-014a-4d12-8570-e0f2f4d60f0e",
+          "nombre": "yoel rodriguez",
+          "altura": "1.76",
+          "peso": "76",
+          "color_cabello": "negro",
+          "color_piel": "trigueño",
+          "color_ojos": "marron oscuro",
+          "anio_nacimiento": "1994",
+          "genero": "masculino"
+        }
+      },
+      "peopleList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/people"
+        },
+        "example": [
+          {
+            "id": "b5886386-014a-4d12-8570-e0f2f4d60f0e",
+            "nombre": "yoel rodriguez",
+            "altura": "1.76",
+            "peso": "76",
+            "color_cabello": "negro",
+            "color_piel": "trigueño",
+            "color_ojos": "marron oscuro",
+            "anio_nacimiento": "1994",
+            "genero": "masculino"
+        }
+      ]
+      },
+      "peopleAdd": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string"
+          },
+          "altura": {
+            "type": "string"
+          },
+          "peso": {
+            "type": "string"
+          },
+          "color_cabello": {
+            "type": "string"
+          },
+          "color_piel": {
+            "type": "string"
+          },
+          "color_ojos": {
+            "type": "string"
+          },
+          "anio_nacimiento": {
+            "type": "string"
+          },
+          "genero": {
+            "type": "string"
+          }
+        }
+      },
+      "error": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "example": { "message": "Insert specific error message here" }
+      }
+    }
+  }
+}

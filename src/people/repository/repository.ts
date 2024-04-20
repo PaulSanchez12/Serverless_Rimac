@@ -12,10 +12,11 @@ export class PeopleRepository {
 
   async insert(people: IPeople) {
     try {
+      const id = uuidv4();
       const command = new PutItemCommand({
         Item: {
           "id": {
-            "S": uuidv4()
+            "S": id
           },
           "nombre": {
             "S": people.nombre
@@ -42,12 +43,15 @@ export class PeopleRepository {
             "S": people.genero
           }
         },
-        ReturnConsumedCapacity: "TOTAL",
+        ReturnValues: "ALL_OLD",
         TableName: env.DYNAMODB_TABLE
       });
 
       await dynamodb.send(command);
-      return;
+
+      return {
+        id
+      };
     } catch (error) {
       return {
         statusCode: error.statusCode || 501,

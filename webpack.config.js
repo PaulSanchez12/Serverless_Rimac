@@ -41,6 +41,13 @@ module.exports = {
           experimentalWatchApi: true,
         },
       },
+      {
+        test: /\.html/,
+        loader: "esbuild-loader",
+        options: {
+          loader: "text",
+        },
+      },
     ],
   },
   plugins: [
